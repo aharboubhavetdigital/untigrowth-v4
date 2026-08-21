@@ -1,0 +1,6 @@
+{
+  "name": "UNITGROWTH",
+  "description": "Private Talent Cloud & Qualification Platform - Qualifier. Mobiliser. Contractualiser. Piloter.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

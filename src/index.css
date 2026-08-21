@@ -1,0 +1,451 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --font-heading: 'Helvetica Now Display Bold', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --color-text: #192837;
+  --color-accent: #7342E2;
+  --color-login-bg: #F2F2EE;
+}
+
+@theme {
+  --color-bg-primary: #F7F8F4;
+  --color-bg-white: #FFFFFF;
+  --color-text-main: #101214;
+  --color-text-muted: #667085;
+  --color-border-light: #E4E7EC;
+  --color-lime: #A8E635;
+  --color-lime-hover: #98d42c;
+  --color-violet: #6C55F5;
+  --color-dark-bg: #0B0D10;
+  --color-dark-card: #15181D;
+  --color-dark-border: #262B33;
+  --color-dark-text: #F8FAFC;
+  --color-dark-muted: #98A2B3;
+  --color-success: #32D583;
+  --color-warning: #F79009;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+@layer utilities {
+  .glow-lime {
+    box-shadow: 0 0 50px -10px rgba(168, 230, 53, 0.3);
+  }
+  .glow-lime-sm {
+    box-shadow: 0 0 20px -5px rgba(168, 230, 53, 0.4);
+  }
+  .glow-violet {
+    box-shadow: 0 0 50px -10px rgba(108, 85, 245, 0.35);
+  }
+  .glow-violet-sm {
+    box-shadow: 0 0 20px -5px rgba(108, 85, 245, 0.4);
+  }
+  .bg-grid-pattern {
+    background-image: radial-gradient(rgba(16, 18, 20, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .bg-grid-pattern-dark {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .animate-marquee {
+    animation: marquee var(--duration, 35s) linear infinite;
+  }
+  .animate-marquee-reverse {
+    animation: marquee var(--duration, 35s) linear infinite reverse;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap, 1rem)));
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0D10;
+}
+::-webkit-scrollbar-thumb {
+  background: #262B33;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #344054;
+}
+
+/* Custom Select & Options styling */
+select {
+  accent-color: #A8E635;
+  color-scheme: dark;
+}
+select option {
+  background-color: #12151C !important;
+  color: #ffffff !important;
+  padding: 8px 12px;
+}
+select option:hover,
+select option:focus,
+select option:active,
+select option:checked {
+  background-color: #A8E635 !important;
+  background-image: linear-gradient(0deg, #A8E635 0%, #A8E635 100%) !important;
+  color: #0B0D10 !important;
+}
+
+/* Light Dashboard Mode Styles (Comprehensive Inverted Color System) */
+.light-dashboard {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+.light-dashboard header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Page & Outer Backgrounds */
+.light-dashboard .bg-\[\#090B0E\],
+.light-dashboard .bg-\[\#0B0D10\],
+.light-dashboard .bg-\[\#0a0c0f\],
+.light-dashboard .bg-\[\#07090C\],
+.light-dashboard .bg-\[\#06080A\] {
+  background-color: #F8FAFC !important;
+}
+
+/* Dark surfaces with opacities */
+.light-dashboard .bg-\[\#090B0E\]\/40,
+.light-dashboard .bg-\[\#090B0E\]\/50,
+.light-dashboard .bg-\[\#090B0E\]\/60,
+.light-dashboard .bg-\[\#090B0E\]\/70,
+.light-dashboard .bg-\[\#090B0E\]\/80,
+.light-dashboard .bg-\[\#090B0E\]\/90,
+.light-dashboard .bg-\[\#0B0D10\]\/60,
+.light-dashboard .bg-\[\#0B0D10\]\/80 {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+/* Card, Panel, Modal & Surface Backgrounds */
+.light-dashboard .bg-\[\#0B0E17\],
+.light-dashboard .bg-\[\#0E131F\],
+.light-dashboard .bg-\[\#131926\],
+.light-dashboard .bg-\[\#141A28\],
+.light-dashboard .bg-\[\#0E121B\],
+.light-dashboard .bg-\[\#0B0F19\],
+.light-dashboard .bg-\[\#0F1218\],
+.light-dashboard .bg-\[\#0F131C\],
+.light-dashboard .bg-\[\#0A0D14\],
+.light-dashboard .bg-\[\#12151C\],
+.light-dashboard .bg-\[\#14171E\],
+.light-dashboard .bg-\[\#15181D\],
+.light-dashboard .bg-\[\#181C24\],
+.light-dashboard .bg-\[\#181C26\],
+.light-dashboard .bg-\[\#1C221D\],
+.light-dashboard .bg-\[\#13161D\],
+.light-dashboard .bg-\[\#13161C\],
+.light-dashboard .bg-\[\#10131A\],
+.light-dashboard .bg-\[\#141822\],
+.light-dashboard .bg-\[\#0d1015\],
+.light-dashboard .bg-\[\#0c0f14\],
+.light-dashboard .bg-\[\#11141A\],
+.light-dashboard .bg-\[\#161A22\],
+.light-dashboard .bg-\[\#121622\],
+.light-dashboard .bg-\[\#181d2c\],
+.light-dashboard .bg-\[\#101217\],
+.light-dashboard .bg-\[\#0E1117\],
+.light-dashboard .bg-\[\#131722\],
+.light-dashboard .bg-\[\#161B26\],
+.light-dashboard .bg-\[\#0d121d\],
+.light-dashboard .bg-\[\#111827\],
+.light-dashboard .bg-\[\#171B26\],
+.light-dashboard .bg-\[\#272E3B\],
+.light-dashboard .bg-\[\#1E232E\],
+.light-dashboard .bg-\[\#151922\] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Gradients in Light Mode */
+.light-dashboard .from-\[\#0C1A14\],
+.light-dashboard .to-\[\#0A1510\] {
+  --tw-gradient-from: #F0FDF4 var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: #ECFDF5 var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+  border-color: #A7F3D0 !important;
+}
+
+.light-dashboard .from-\[\#101A12\],
+.light-dashboard .via-\[\#122416\],
+.light-dashboard .to-\[\#18331A\] {
+  --tw-gradient-from: #ECFCCB var(--tw-gradient-from-position) !important;
+  --tw-gradient-via: #E2F9B8 var(--tw-gradient-via-position) !important;
+  --tw-gradient-to: #D9F99D var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to) !important;
+  border-color: #A3E635 !important;
+  color: #0F172A !important;
+}
+
+.light-dashboard .from-\[\#101A12\] .text-white,
+.light-dashboard .from-\[\#101A12\] .text-\[\#A8E635\] {
+  color: #1A2E05 !important;
+}
+
+.light-dashboard .from-\[\#101A12\] .bg-\[\#A8E635\]\/20 {
+  background-color: rgba(63, 98, 18, 0.15) !important;
+  color: #365314 !important;
+  border-color: rgba(63, 98, 18, 0.25) !important;
+}
+
+.light-dashboard .from-\[\#101A12\] button {
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+}
+
+/* Semi-transparent dark surfaces -> light slate */
+.light-dashboard .bg-white\/5,
+.light-dashboard .bg-white\/\[0\.02\],
+.light-dashboard .bg-white\/\[0\.03\],
+.light-dashboard .bg-white\/\[0\.04\],
+.light-dashboard .bg-white\/\[0\.05\],
+.light-dashboard .bg-white\/\[0\.06\],
+.light-dashboard .bg-white\/\[0\.07\],
+.light-dashboard .bg-white\/\[0\.08\],
+.light-dashboard .bg-white\/10,
+.light-dashboard .bg-white\/15,
+.light-dashboard .bg-white\/20,
+.light-dashboard .bg-white\/30 {
+  background-color: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+/* Hover States */
+.light-dashboard .hover\:bg-white\/5:hover,
+.light-dashboard .hover\:bg-white\/10:hover,
+.light-dashboard .hover\:bg-white\/15:hover,
+.light-dashboard .hover\:bg-white\/20:hover,
+.light-dashboard .hover\:bg-white\/\[0\.02\]:hover,
+.light-dashboard .hover\:bg-white\/\[0\.03\]:hover,
+.light-dashboard .hover\:bg-white\/\[0\.05\]:hover,
+.light-dashboard .hover\:bg-\[\#181d2c\]:hover,
+.light-dashboard .hover\:bg-\[\#121622\]:hover,
+.light-dashboard .hover\:bg-\[\#0c0f14\]:hover,
+.light-dashboard .hover\:bg-\[\#181C26\]:hover {
+  background-color: #E2E8F0 !important;
+}
+
+/* Typography & Contrast */
+.light-dashboard .text-white,
+.light-dashboard .text-\[\#E4E7EC\],
+.light-dashboard .text-\[\#F8FAFC\],
+.light-dashboard .text-white\/90,
+.light-dashboard .text-white\/80 {
+  color: #0F172A !important;
+}
+
+.light-dashboard .text-\[\#98A2B3\],
+.light-dashboard .text-\[\#8A94A6\],
+.light-dashboard .text-\[\#667085\],
+.light-dashboard .text-white\/70,
+.light-dashboard .text-white\/60 {
+  color: #475569 !important;
+}
+
+.light-dashboard .text-\[\#475467\] {
+  color: #64748B !important;
+}
+
+/* Borders */
+.light-dashboard .border-white\/5,
+.light-dashboard .border-white\/10,
+.light-dashboard .border-white\/15,
+.light-dashboard .border-white\/20,
+.light-dashboard .border-white\/30,
+.light-dashboard .border-white\/40,
+.light-dashboard .border-white {
+  border-color: #E2E8F0 !important;
+}
+
+.light-dashboard .divide-white\/5,
+.light-dashboard .divide-white\/10,
+.light-dashboard .divide-white\/15,
+.light-dashboard .divide-white\/20 {
+  border-color: #E2E8F0 !important;
+}
+
+/* Rings */
+.light-dashboard .ring-\[\#0F1218\],
+.light-dashboard .ring-\[\#090B0E\],
+.light-dashboard .ring-\[\#0B0D10\],
+.light-dashboard .ring-\[\#0B0E17\] {
+  --tw-ring-color: #FFFFFF !important;
+}
+
+.light-dashboard .ring-white\/10,
+.light-dashboard .ring-white\/20,
+.light-dashboard .ring-white\/30,
+.light-dashboard .ring-white {
+  --tw-ring-color: #CBD5E1 !important;
+}
+
+/* Green Brand Accents and CTA Buttons */
+.light-dashboard .text-\[\#A8E635\] {
+  color: #3F6212 !important;
+}
+
+.light-dashboard .bg-\[\#A8E635\] {
+  background-color: #A8E635 !important;
+  color: #0B0D10 !important;
+}
+
+.light-dashboard .bg-\[\#A8E635\]\/10,
+.light-dashboard .bg-\[\#A8E635\]\/15,
+.light-dashboard .bg-\[\#A8E635\]\/20,
+.light-dashboard .bg-\[\#A8E635\]\/25,
+.light-dashboard .bg-\[\#A8E635\]\/60 {
+  background-color: #F7FEE7 !important;
+  border-color: #D9F99D !important;
+  color: #3F6212 !important;
+}
+
+/* Form Controls & Inputs */
+.light-dashboard input,
+.light-dashboard select,
+.light-dashboard textarea {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+.light-dashboard input::placeholder,
+.light-dashboard textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+.light-dashboard select {
+  color-scheme: light !important;
+}
+
+.light-dashboard select option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+/* Colored Status Badges & Pills */
+.light-dashboard .text-emerald-400,
+.light-dashboard .text-emerald-300 {
+  color: #15803D !important;
+}
+.light-dashboard .bg-emerald-500\/10,
+.light-dashboard .bg-emerald-500\/15,
+.light-dashboard .bg-emerald-500\/20,
+.light-dashboard .bg-emerald-950\/30,
+.light-dashboard .bg-emerald-950\/40 {
+  background-color: #ECFDF5 !important;
+  border-color: #A7F3D0 !important;
+  color: #15803D !important;
+}
+
+.light-dashboard .text-amber-400,
+.light-dashboard .text-amber-300,
+.light-dashboard .text-yellow-400,
+.light-dashboard .text-yellow-300 {
+  color: #B45309 !important;
+}
+.light-dashboard .bg-amber-500\/10,
+.light-dashboard .bg-amber-500\/15,
+.light-dashboard .bg-amber-500\/20,
+.light-dashboard .bg-amber-950\/30 {
+  background-color: #FFFBEB !important;
+  border-color: #FDE68A !important;
+  color: #B45309 !important;
+}
+
+.light-dashboard .text-blue-400,
+.light-dashboard .text-blue-300 {
+  color: #1D4ED8 !important;
+}
+.light-dashboard .bg-blue-500\/10,
+.light-dashboard .bg-blue-500\/15,
+.light-dashboard .bg-blue-500\/20 {
+  background-color: #EFF6FF !important;
+  border-color: #BFDBFE !important;
+  color: #1D4ED8 !important;
+}
+
+.light-dashboard .text-purple-400,
+.light-dashboard .text-purple-300,
+.light-dashboard .text-violet-400 {
+  color: #6D28D9 !important;
+}
+.light-dashboard .bg-purple-500\/10,
+.light-dashboard .bg-purple-500\/15,
+.light-dashboard .bg-purple-500\/20 {
+  background-color: #FAF5FF !important;
+  border-color: #E9D5FF !important;
+  color: #6D28D9 !important;
+}
+
+.light-dashboard .text-red-400,
+.light-dashboard .text-red-300 {
+  color: #B91C1C !important;
+}
+.light-dashboard .bg-red-500\/10,
+.light-dashboard .bg-red-500\/15,
+.light-dashboard .bg-red-500\/20 {
+  background-color: #FEF2F2 !important;
+  border-color: #FECACA !important;
+  color: #B91C1C !important;
+}
+
+/* Modals & Backdrop */
+.light-dashboard .bg-black\/60,
+.light-dashboard .bg-black\/70,
+.light-dashboard .bg-black\/80,
+.light-dashboard .bg-black\/85,
+.light-dashboard .bg-black\/90 {
+  background-color: rgba(15, 23, 42, 0.4) !important;
+}
+
+/* Entonnoir progress bars in light mode */
+.light-dashboard .from-white.to-slate-200 {
+  --tw-gradient-from: #1E293B var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: #334155 var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+  box-shadow: none !important;
+}
+
+/* SVG Charts Light Mode Adaptation */
+.light-dashboard svg text {
+  fill: #475569 !important;
+}
+
+.light-dashboard svg line {
+  stroke: #E2E8F0 !important;
+}
+
+.light-dashboard svg circle[fill="#FFFFFF"] {
+  fill: #FFFFFF !important;
+  stroke: #65A30D !important;
+}
+
+.light-dashboard svg path[stroke="#A8E635"] {
+  stroke: #4D7C0F !important;
+}
+

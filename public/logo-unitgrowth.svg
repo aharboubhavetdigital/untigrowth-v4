@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 100" fill="none">
+  <!-- UnitGrowth Official Brand Icon (Light Mode Adaptive: Dark Slate bracket + Lime Arrow + Dark/Lime Text) -->
+  <g>
+    <!-- Outer corner line / bracket (Dark Slate #0F172A in light mode) -->
+    <path 
+      d="M 8 22 L 8 68 A 20 20 0 0 0 28 88 L 62 88" 
+      stroke="#0F172A" 
+      stroke-width="6" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+    />
+    <!-- Diagonal Growth Arrow (Vibrant Green #65A30D) -->
+    <path 
+      d="M 46 6 L 94 6 L 94 54 L 76 36 L 38 74 L 24 60 L 62 22 Z" 
+      fill="#65A30D" 
+    />
+  </g>
+  
+  <!-- Text: Growth (Exact Typography from Brand Identity) -->
+  <text x="115" y="70" font-family="Plus Jakarta Sans, Montserrat, Inter, system-ui, -apple-system, sans-serif" font-weight="900" font-size="54" fill="#0F172A" letter-spacing="-0.03em">Growth</text>
+</svg>
