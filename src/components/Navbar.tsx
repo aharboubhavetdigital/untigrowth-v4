@@ -6,9 +6,19 @@ interface NavbarProps {
   onOpenJoin: () => void;
   onOpenDiscover: () => void;
   onOpenLogin: () => void;
+  reduceOpacityOnScroll?: boolean;
+  minimalMode?: boolean;
+  onNavigateHome?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, onOpenDiscover, onOpenLogin }) => {
+export const Navbar: React.FC<NavbarProps> = ({ 
+  onOpenJoin, 
+  onOpenDiscover, 
+  onOpenLogin, 
+  reduceOpacityOnScroll = false,
+  minimalMode = false,
+  onNavigateHome
+}) => {
   const [scrolled, setScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,7 +32,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, onOpenDiscover, onOp
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isExpanded = !scrolled || isHovered || mobileMenuOpen;
+  const isExpanded = minimalMode ? false : (!scrolled || isHovered || mobileMenuOpen);
+  
+  // Apply opacity reduction if prop is true, we have scrolled, and it's not currently hovered or open
+  const shouldReduceOpacity = reduceOpacityOnScroll && scrolled && !isHovered && !mobileMenuOpen;
 
   const navLinks = [
     { name: 'Concept', href: '#concept' },
@@ -39,17 +52,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, onOpenDiscover, onOp
         id="main-navbar-container"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`pointer-events-auto w-full transition-all duration-500 ease-out backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/40 ${
-          mobileMenuOpen ? 'rounded-3xl bg-[#15181D]/95 max-w-5xl' : 'rounded-full'
+        className={`pointer-events-auto w-full transition-all duration-500 ease-out backdrop-blur-[40px] border border-white/10 shadow-2xl shadow-black/40 ${
+          shouldReduceOpacity ? 'opacity-40' : 'opacity-100'
+        } ${
+          mobileMenuOpen ? 'rounded-3xl bg-[#15181D]/80 max-w-5xl' : 'rounded-full'
         } ${
           isExpanded
-            ? 'bg-[#15181D]/90 py-3 px-6 max-w-5xl border-white/20 shadow-2xl'
-            : 'bg-[#15181D]/80 border-white/15 shadow-lg py-2 px-5 max-w-[320px]'
+            ? 'bg-white/[0.03] py-3 px-6 max-w-5xl border-white/20 shadow-2xl'
+            : 'bg-white/[0.02] border-white/15 shadow-lg py-2 px-5 max-w-[320px]'
         }`}
       >
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center group shrink-0 transition-transform hover:scale-105 active:scale-95">
+          <a 
+            href="#" 
+            onClick={(e) => {
+              if (minimalMode && onNavigateHome) {
+                e.preventDefault();
+                onNavigateHome();
+              }
+            }}
+            className="flex items-center group shrink-0 transition-transform hover:scale-105 active:scale-95"
+          >
             <UnitGrowthLogo variant="stacked" theme="dark" size={isExpanded ? 'md' : 'sm'} />
           </a>
 
@@ -86,14 +110,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, onOpenDiscover, onOp
 
             {/* CTA Button */}
             <button
-              onClick={onOpenJoin}
-              className={`text-sm font-bold bg-[#A8E635] hover:bg-[#98d42c] text-[#101214] rounded-full transition-all duration-500 ease-out shadow-sm hover:shadow-md flex items-center justify-center cursor-pointer whitespace-nowrap ${
-                isExpanded ? 'px-4 py-2 gap-1.5' : 'w-9 h-9 sm:w-10 sm:h-10 p-0 rounded-full'
+              onClick={minimalMode && onNavigateHome ? onNavigateHome : onOpenJoin}
+              className={`text-sm font-bold bg-[#A8E635] hover:bg-[#98d42c] text-[#101214] rounded-full transition-all duration-500 ease-out shadow-sm hover:shadow-md flex items-center justify-center cursor-pointer whitespace-nowrap h-9 sm:h-10 ${
+                isExpanded ? 'px-5 gap-2' : 'w-9 sm:w-10 px-0'
               }`}
-              title="Découvrir Unitgrowth"
+              title={minimalMode ? "Retour à l'accueil" : "Découvrir Unitgrowth"}
             >
               <span
-                className={`transition-all duration-500 ease-out overflow-hidden ${
+                className={`transition-all duration-500 ease-out overflow-hidden flex items-center ${
                   isExpanded ? 'max-w-[200px] opacity-100' : 'max-w-0 opacity-0'
                 }`}
               >

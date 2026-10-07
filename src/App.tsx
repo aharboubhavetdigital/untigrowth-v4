@@ -16,9 +16,10 @@ import { SuperAdminDashboard } from './components/SuperAdminDashboard';
 import { ResponsableDashboard } from './components/ResponsableDashboard';
 import { FreelanceDashboard } from './components/FreelanceDashboard';
 import { FluidSplashCursor } from './components/FluidSplashCursor';
+import { MentionsLegales } from './components/MentionsLegales';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'login' | 'dashboard-admin' | 'dashboard-responsable' | 'dashboard-freelance'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'login' | 'dashboard-admin' | 'dashboard-responsable' | 'dashboard-freelance' | 'mentions-legales'>('home');
   const [activeRole, setActiveRole] = useState<string>('Super administrateur');
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [discoverModalOpen, setDiscoverModalOpen] = useState(false);
@@ -35,18 +36,22 @@ export default function App() {
   };
 
   const isDashboard = currentView === 'dashboard-admin' || currentView === 'dashboard-responsable' || currentView === 'dashboard-freelance';
+  const isMentionsLegales = currentView === 'mentions-legales';
 
   return (
     <div className="min-h-screen bg-[#0B0D10] text-[#F8FAFC] font-sans antialiased selection:bg-white selection:text-[#101214]">
       {/* Full-Page WebGL Fluid Splash Overlay Cursor */}
       <FluidSplashCursor />
 
-      {/* Sticky Navbar (Only shown on home and login pages) */}
+      {/* Sticky Navbar (Only shown on non-dashboard pages) */}
       {!isDashboard && (
         <Navbar
           onOpenJoin={() => setJoinModalOpen(true)}
           onOpenDiscover={() => setDiscoverModalOpen(true)}
           onOpenLogin={() => setCurrentView('login')}
+          reduceOpacityOnScroll={isMentionsLegales}
+          minimalMode={isMentionsLegales}
+          onNavigateHome={() => setCurrentView('home')}
         />
       )}
 
@@ -73,6 +78,11 @@ export default function App() {
           onBack={() => setCurrentView('home')}
           onNavigateToDashboard={handleNavigateToDashboard}
         />
+      ) : currentView === 'mentions-legales' ? (
+        <>
+          <MentionsLegales onBack={() => setCurrentView('home')} />
+          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} />
+        </>
       ) : (
         <>
           {/* Main Sections Hierarchy */}
@@ -103,7 +113,7 @@ export default function App() {
           </main>
 
           {/* Footer */}
-          <Footer />
+          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} />
         </>
       )}
 
