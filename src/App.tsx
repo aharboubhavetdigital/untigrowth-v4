@@ -88,42 +88,42 @@ export default function App() {
       ) : currentView === 'mentions-legales' ? (
         <>
           <MentionsLegales onBack={() => setCurrentView('home')} />
-          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} onOpenJoin={() => setJoinModalOpen(true)} onOpenLogin={() => setCurrentView('login')} />
         </>
       ) : currentView === 'politique-confidentialite' ? (
         <>
           <PolitiqueConfidentialite onBack={() => setCurrentView('home')} />
-          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} onOpenJoin={() => setJoinModalOpen(true)} onOpenLogin={() => setCurrentView('login')} />
         </>
       ) : currentView === 'cgu' ? (
         <>
           <CGU onBack={() => setCurrentView('home')} />
-          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} onOpenJoin={() => setJoinModalOpen(true)} onOpenLogin={() => setCurrentView('login')} />
         </>
       ) : currentView === 'conditions-missions' ? (
         <>
           <ConditionsMissions onBack={() => setCurrentView('home')} />
-          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} onOpenJoin={() => setJoinModalOpen(true)} onOpenLogin={() => setCurrentView('login')} />
         </>
       ) : currentView === 'politique-cookies' ? (
         <>
           <PolitiqueCookies onBack={() => setCurrentView('home')} />
-          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} onOpenJoin={() => setJoinModalOpen(true)} onOpenLogin={() => setCurrentView('login')} />
         </>
       ) : currentView === 'mentions-interface' ? (
         <>
           <MentionsInterface onBack={() => setCurrentView('home')} />
-          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} onOpenJoin={() => setJoinModalOpen(true)} onOpenLogin={() => setCurrentView('login')} />
         </>
       ) : currentView === 'accord-responsabilite' ? (
         <>
           <AccordResponsabilite onBack={() => setCurrentView('home')} />
-          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} onOpenJoin={() => setJoinModalOpen(true)} onOpenLogin={() => setCurrentView('login')} />
         </>
       ) : currentView === 'annexe-traitement' ? (
         <>
           <AnnexeTraitementDonnees onBack={() => setCurrentView('home')} />
-          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} onOpenJoin={() => setJoinModalOpen(true)} onOpenLogin={() => setCurrentView('login')} />
         </>
       ) : (
         <>
@@ -155,7 +155,7 @@ export default function App() {
           </main>
 
           {/* Footer */}
-          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} onOpenJoin={() => setJoinModalOpen(true)} onOpenLogin={() => setCurrentView('login')} />
         </>
       )}
 
