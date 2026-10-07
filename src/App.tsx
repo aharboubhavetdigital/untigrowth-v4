@@ -18,9 +18,15 @@ import { FreelanceDashboard } from './components/FreelanceDashboard';
 import { FluidSplashCursor } from './components/FluidSplashCursor';
 import { MentionsLegales } from './components/MentionsLegales';
 import { PolitiqueConfidentialite } from './components/PolitiqueConfidentialite';
+import { CGU } from './components/CGU';
+import { ConditionsMissions } from './components/ConditionsMissions';
+import { PolitiqueCookies } from './components/PolitiqueCookies';
+import { MentionsInterface } from './components/MentionsInterface';
+import { AccordResponsabilite } from './components/AccordResponsabilite';
+import { AnnexeTraitementDonnees } from './components/AnnexeTraitementDonnees';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'login' | 'dashboard-admin' | 'dashboard-responsable' | 'dashboard-freelance' | 'mentions-legales' | 'politique-confidentialite'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'login' | 'dashboard-admin' | 'dashboard-responsable' | 'dashboard-freelance' | 'mentions-legales' | 'politique-confidentialite' | 'cgu' | 'conditions-missions' | 'politique-cookies' | 'mentions-interface' | 'accord-responsabilite' | 'annexe-traitement'>('home');
   const [activeRole, setActiveRole] = useState<string>('Super administrateur');
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [discoverModalOpen, setDiscoverModalOpen] = useState(false);
@@ -37,7 +43,7 @@ export default function App() {
   };
 
   const isDashboard = currentView === 'dashboard-admin' || currentView === 'dashboard-responsable' || currentView === 'dashboard-freelance';
-  const isMentionsLegales = currentView === 'mentions-legales' || currentView === 'politique-confidentialite';
+  const isMentionsLegales = ['mentions-legales', 'politique-confidentialite', 'cgu', 'conditions-missions', 'politique-cookies', 'mentions-interface', 'accord-responsabilite', 'annexe-traitement'].includes(currentView);
 
   return (
     <div className="min-h-screen bg-[#0B0D10] text-[#F8FAFC] font-sans antialiased selection:bg-white selection:text-[#101214]">
@@ -82,12 +88,42 @@ export default function App() {
       ) : currentView === 'mentions-legales' ? (
         <>
           <MentionsLegales onBack={() => setCurrentView('home')} />
-          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} onOpenPolitique={() => setCurrentView('politique-confidentialite')} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} />
         </>
       ) : currentView === 'politique-confidentialite' ? (
         <>
           <PolitiqueConfidentialite onBack={() => setCurrentView('home')} />
-          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} onOpenPolitique={() => setCurrentView('politique-confidentialite')} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+        </>
+      ) : currentView === 'cgu' ? (
+        <>
+          <CGU onBack={() => setCurrentView('home')} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+        </>
+      ) : currentView === 'conditions-missions' ? (
+        <>
+          <ConditionsMissions onBack={() => setCurrentView('home')} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+        </>
+      ) : currentView === 'politique-cookies' ? (
+        <>
+          <PolitiqueCookies onBack={() => setCurrentView('home')} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+        </>
+      ) : currentView === 'mentions-interface' ? (
+        <>
+          <MentionsInterface onBack={() => setCurrentView('home')} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+        </>
+      ) : currentView === 'accord-responsabilite' ? (
+        <>
+          <AccordResponsabilite onBack={() => setCurrentView('home')} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} />
+        </>
+      ) : currentView === 'annexe-traitement' ? (
+        <>
+          <AnnexeTraitementDonnees onBack={() => setCurrentView('home')} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} />
         </>
       ) : (
         <>
@@ -119,7 +155,7 @@ export default function App() {
           </main>
 
           {/* Footer */}
-          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} onOpenPolitique={() => setCurrentView('politique-confidentialite')} />
+          <Footer onNavigate={(view) => setCurrentView(view as any)} />
         </>
       )}
 

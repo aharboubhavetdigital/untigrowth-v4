@@ -23,21 +23,27 @@ const PILL_TAGS = [
 ];
 
 interface FooterProps {
-  onOpenMentions?: () => void;
-  onOpenPolitique?: () => void;
+  onNavigate?: (view: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenMentions, onOpenPolitique }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const handleNav = (e: React.MouseEvent, view: string) => {
+    e.preventDefault();
+    if (onNavigate) {
+      setTimeout(() => onNavigate(view), 150);
+    }
+  };
+
   return (
     <footer className="bg-[#0B0D10] text-[#98A2B3] pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-16 items-start">
           {/* Column 1: Brand & Tagline */}
           <div className="space-y-6">
             <a href="#" className="inline-block transition-transform active:scale-95">
               <UnitGrowthLogo variant="stacked" theme="dark" size="md" />
             </a>
-            <p className="text-sm text-[#98A2B3] max-w-[26rem] leading-relaxed">
+            <p className="text-sm text-[#98A2B3] leading-relaxed">
               UnitGrowth est la plateforme dédiée aux freelances participant à la production des projets d'IAWeb.dev et Havet Digital.
             </p>
             <div className="flex gap-3 pt-2">
@@ -53,64 +59,73 @@ export const Footer: React.FC<FooterProps> = ({ onOpenMentions, onOpenPolitique 
             </div>
           </div>
 
-          {/* Column 2: Navigation */}
+          {/* Column 2: Documents Légaux Part 1 (4 items) */}
           <div>
             <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-6 font-mono">
-              NAVIGATION
+              DOCUMENTS LÉGAUX
             </h4>
             <ul className="space-y-3.5 text-sm text-[#98A2B3]">
               <li>
-                <a href="#concept" className="hover:text-[#A8E635] transition-colors">Concept Private Talent Cloud</a>
+                <button onClick={(e) => handleNav(e, 'mentions-legales')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  Mentions légales
+                </button>
               </li>
               <li>
-                <a href="#fonctionnement" className="hover:text-[#A8E635] transition-colors">Parcours Transparent</a>
+                <button onClick={(e) => handleNav(e, 'cgu')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  CGU
+                </button>
               </li>
               <li>
-                <a href="#matching" className="hover:text-[#A8E635] transition-colors">Matching & Ingestion</a>
+                <button onClick={(e) => handleNav(e, 'conditions-missions')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  Conditions de missions freelance
+                </button>
               </li>
               <li>
-                <a href="#tarifs" className="hover:text-[#A8E635] transition-colors">Transparence Tarifaire</a>
+                <button onClick={(e) => handleNav(e, 'politique-confidentialite')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  Politique de confidentialité
+                </button>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Écosystème */}
+          {/* Column 3: Documents Légaux Part 2 (4 items) */}
+          <div>
+            <div className="hidden sm:block h-[16px] mb-6" aria-hidden="true" />
+            <ul className="space-y-3.5 text-sm text-[#98A2B3]">
+              <li>
+                <button onClick={(e) => handleNav(e, 'politique-cookies')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  Politique de cookies
+                </button>
+              </li>
+              <li>
+                <button onClick={(e) => handleNav(e, 'mentions-interface')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  Mentions interface
+                </button>
+              </li>
+              <li>
+                <button onClick={(e) => handleNav(e, 'accord-responsabilite')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  Accord de responsabilité conjointe
+                </button>
+              </li>
+              <li>
+                <button onClick={(e) => handleNav(e, 'annexe-traitement')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  Annexe de traitement de données
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Écosystème */}
           <div>
             <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-6 font-mono">
               ÉCOSYSTÈME
             </h4>
             <ul className="space-y-3.5 text-sm text-[#98A2B3]">
               <li>
-                <a href="https://iaweb.dev/" target="_blank" rel="noopener noreferrer" className="hover:text-[#A8E635] transition-colors">Site officiel IAWeb.dev</a>
+                <a href="https://iaweb.dev/" target="_blank" rel="noopener noreferrer" className="hover:text-[#A8E635] transition-colors inline-block">Site officiel IAWeb.dev</a>
               </li>
               <li>
-                <a href="https://havetdigital.fr/" target="_blank" rel="noopener noreferrer" className="hover:text-[#A8E635] transition-colors">Site officiel Havet Digital</a>
-              </li>
-              <li>
-                <button 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (onOpenMentions) {
-                      setTimeout(onOpenMentions, 150);
-                    }
-                  }} 
-                  className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full sm:w-auto"
-                >
-                  Mentions légales
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (onOpenPolitique) {
-                      setTimeout(onOpenPolitique, 150);
-                    }
-                  }} 
-                  className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full sm:w-auto"
-                >
-                  Politique de confidentialité
-                </button>
+                <a href="https://havetdigital.fr/" target="_blank" rel="noopener noreferrer" className="hover:text-[#A8E635] transition-colors inline-block">Site officiel Havet Digital</a>
               </li>
             </ul>
           </div>
