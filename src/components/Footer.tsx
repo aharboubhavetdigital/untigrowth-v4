@@ -166,7 +166,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenJoin }) => {
             <div className="pt-1">
               <button
                 onClick={onOpenJoin}
-                className="px-5 py-2.5 bg-[#A8E635] hover:bg-[#98d42c] text-[#101214] text-xs font-bold rounded-full transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 group cursor-pointer"
+                className="px-5 py-2.5 bg-white hover:bg-[#A8E635] text-[#101214] text-xs font-bold rounded-full transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 group cursor-pointer"
               >
                 <span>Découvrir Unitgrowth</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
