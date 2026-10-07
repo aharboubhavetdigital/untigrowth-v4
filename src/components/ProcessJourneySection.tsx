@@ -96,11 +96,11 @@ export const ProcessJourneySection: React.FC = () => {
     gsap.ticker.add(tickerCallback);
     gsap.ticker.lagSmoothing(0);
 
-    const stickyCardCount = 6;
-    const cardFlipTiltAngles = [-12, -8, -4, 4, 8, 12];
+    const stickyCardCount = 5;
+    const cardFlipTiltAngles = [-12, -8, -4, 4, 8, 0];
     const cardDismissTiltAngles = [-45, -35, -25, 25, 35, 45];
 
-    const totalScrollSvh = 300 + stickyCardCount * 100; // 900 svh
+    const totalScrollSvh = 300 + stickyCardCount * 100; // 800 svh
     const totalScrollPx = window.innerHeight * (totalScrollSvh / 100);
 
     let isFlipped = false;

@@ -47,13 +47,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenJoin }) => {
       wordFoot="#121b06"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 mb-12 items-start">
+        <div className="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-12 gap-12 sm:gap-8 mb-12 sm:items-start">
           {/* Column 1: Brand & Tagline (3 cols) */}
           <div className="lg:col-span-3 space-y-6">
             <a href="#" className="inline-block transition-transform active:scale-95">
               <UnitGrowthLogo variant="stacked" theme="dark" size="md" />
             </a>
-            <p className="text-sm text-[#98A2B3] leading-relaxed">
+            <p className="text-sm text-[#98A2B3] leading-relaxed max-w-sm">
               UnitGrowth est la plateforme dédiée aux freelances participant à la production des projets d'IAWeb.dev et Havet Digital.
             </p>
             <div className="flex gap-3 pt-2">
@@ -71,10 +71,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenJoin }) => {
 
           {/* Column 2: Navigation (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-6 font-mono">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-5 font-mono">
               NAVIGATION
             </h4>
-            <ul className="space-y-3.5 text-sm text-[#98A2B3]">
+            <ul className="space-y-4 text-sm text-[#98A2B3]">
               <li>
                 <a href="#concept" onClick={(e) => handleNavSection(e, 'concept')} className="hover:text-[#A8E635] transition-colors inline-block">Concept</a>
               </li>
@@ -98,50 +98,50 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenJoin }) => {
 
           {/* Column 3: Documents Légaux (4 cols with 2 sub-columns) */}
           <div className="lg:col-span-4">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-6 font-mono">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-5 font-mono">
               DOCUMENTS LÉGAUX
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3.5 text-sm text-[#98A2B3]">
-              <ul className="space-y-3.5">
+            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-x-4 gap-y-4 text-sm text-[#98A2B3]">
+              <ul className="space-y-4">
                 <li>
-                  <button onClick={(e) => handleNav(e, 'mentions-legales')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  <button onClick={(e) => handleNav(e, 'mentions-legales')} className="hover:text-[#A8E635] active:scale-95 transition-all duration-150 ease-out origin-left inline-block text-left w-full break-words">
                     Mentions légales
                   </button>
                 </li>
                 <li>
-                  <button onClick={(e) => handleNav(e, 'cgu')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  <button onClick={(e) => handleNav(e, 'cgu')} className="hover:text-[#A8E635] active:scale-95 transition-all duration-150 ease-out origin-left inline-block text-left w-full break-words">
                     CGU
                   </button>
                 </li>
                 <li>
-                  <button onClick={(e) => handleNav(e, 'conditions-missions')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  <button onClick={(e) => handleNav(e, 'conditions-missions')} className="hover:text-[#A8E635] active:scale-95 transition-all duration-150 ease-out origin-left inline-block text-left w-full break-words">
                     Conditions de missions freelance
                   </button>
                 </li>
                 <li>
-                  <button onClick={(e) => handleNav(e, 'politique-confidentialite')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  <button onClick={(e) => handleNav(e, 'politique-confidentialite')} className="hover:text-[#A8E635] active:scale-95 transition-all duration-150 ease-out origin-left inline-block text-left w-full break-words">
                     Politique de confidentialité
                   </button>
                 </li>
               </ul>
-              <ul className="space-y-3.5">
+              <ul className="space-y-4">
                 <li>
-                  <button onClick={(e) => handleNav(e, 'politique-cookies')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  <button onClick={(e) => handleNav(e, 'politique-cookies')} className="hover:text-[#A8E635] active:scale-95 transition-all duration-150 ease-out origin-left inline-block text-left w-full break-words">
                     Politique de cookies
                   </button>
                 </li>
                 <li>
-                  <button onClick={(e) => handleNav(e, 'mentions-interface')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  <button onClick={(e) => handleNav(e, 'mentions-interface')} className="hover:text-[#A8E635] active:scale-95 transition-all duration-150 ease-out origin-left inline-block text-left w-full break-words">
                     Mentions interface
                   </button>
                 </li>
                 <li>
-                  <button onClick={(e) => handleNav(e, 'accord-responsabilite')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  <button onClick={(e) => handleNav(e, 'accord-responsabilite')} className="hover:text-[#A8E635] active:scale-95 transition-all duration-150 ease-out origin-left inline-block text-left w-full break-words">
                     Accord de responsabilité conjointe
                   </button>
                 </li>
                 <li>
-                  <button onClick={(e) => handleNav(e, 'annexe-traitement')} className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full">
+                  <button onClick={(e) => handleNav(e, 'annexe-traitement')} className="hover:text-[#A8E635] active:scale-95 transition-all duration-150 ease-out origin-left inline-block text-left w-full break-words">
                     Annexe de traitement de données
                   </button>
                 </li>
