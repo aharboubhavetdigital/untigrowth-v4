@@ -17,9 +17,10 @@ import { ResponsableDashboard } from './components/ResponsableDashboard';
 import { FreelanceDashboard } from './components/FreelanceDashboard';
 import { FluidSplashCursor } from './components/FluidSplashCursor';
 import { MentionsLegales } from './components/MentionsLegales';
+import { PolitiqueConfidentialite } from './components/PolitiqueConfidentialite';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'login' | 'dashboard-admin' | 'dashboard-responsable' | 'dashboard-freelance' | 'mentions-legales'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'login' | 'dashboard-admin' | 'dashboard-responsable' | 'dashboard-freelance' | 'mentions-legales' | 'politique-confidentialite'>('home');
   const [activeRole, setActiveRole] = useState<string>('Super administrateur');
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [discoverModalOpen, setDiscoverModalOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function App() {
   };
 
   const isDashboard = currentView === 'dashboard-admin' || currentView === 'dashboard-responsable' || currentView === 'dashboard-freelance';
-  const isMentionsLegales = currentView === 'mentions-legales';
+  const isMentionsLegales = currentView === 'mentions-legales' || currentView === 'politique-confidentialite';
 
   return (
     <div className="min-h-screen bg-[#0B0D10] text-[#F8FAFC] font-sans antialiased selection:bg-white selection:text-[#101214]">
@@ -81,7 +82,12 @@ export default function App() {
       ) : currentView === 'mentions-legales' ? (
         <>
           <MentionsLegales onBack={() => setCurrentView('home')} />
-          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} />
+          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} onOpenPolitique={() => setCurrentView('politique-confidentialite')} />
+        </>
+      ) : currentView === 'politique-confidentialite' ? (
+        <>
+          <PolitiqueConfidentialite onBack={() => setCurrentView('home')} />
+          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} onOpenPolitique={() => setCurrentView('politique-confidentialite')} />
         </>
       ) : (
         <>
@@ -113,7 +119,7 @@ export default function App() {
           </main>
 
           {/* Footer */}
-          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} />
+          <Footer onOpenMentions={() => setCurrentView('mentions-legales')} onOpenPolitique={() => setCurrentView('politique-confidentialite')} />
         </>
       )}
 

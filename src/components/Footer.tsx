@@ -24,9 +24,10 @@ const PILL_TAGS = [
 
 interface FooterProps {
   onOpenMentions?: () => void;
+  onOpenPolitique?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenMentions }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenMentions, onOpenPolitique }) => {
   return (
     <footer className="bg-[#0B0D10] text-[#98A2B3] pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,7 +100,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenMentions }) => {
                 </button>
               </li>
               <li>
-                <a href="#" className="hover:text-[#A8E635] transition-colors">Politique de confidentialité</a>
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onOpenPolitique) {
+                      setTimeout(onOpenPolitique, 150);
+                    }
+                  }} 
+                  className="hover:text-[#A8E635] active:scale-90 transition-all duration-150 ease-out origin-left inline-block text-left w-full sm:w-auto"
+                >
+                  Politique de confidentialité
+                </button>
               </li>
             </ul>
           </div>

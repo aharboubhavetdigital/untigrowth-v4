@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
 import TiltedCard from './ui/TiltedCard';
 
@@ -7,6 +7,10 @@ interface MentionsLegalesProps {
 }
 
 export const MentionsLegales: React.FC<MentionsLegalesProps> = ({ onBack }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -108,7 +112,7 @@ export const MentionsLegales: React.FC<MentionsLegalesProps> = ({ onBack }) => {
                 </div>
               </TiltedCard>
             </div>
-          </section>
+          </motion.section>
 
           {/* Section 2 */}
           <motion.section variants={itemVariants}>
