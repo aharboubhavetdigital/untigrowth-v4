@@ -23,7 +23,7 @@ export const beamTarget = (u: number, lo: number = 30, hi: number = 82): number 
   lo + (hi - lo) * clamp(Number.isFinite(u) ? u : 0.5, 0, 1)
 
 export const drift = (t: number, centre: number = 58, amp: number = 9): number =>
-  centre + amp * (0.7 * Math.sin(t * 0.21) + 0.3 * Math.sin(t * 0.077 + 1.3))
+  centre + amp * (0.7 * Math.sin(t * 0.5) + 0.3 * Math.sin(t * 0.2 + 1.3))
 
 export const approach = (from: number, to: number, k: number, dt: number): number =>
   to + (from - to) * Math.pow(1 - clamp(k, 0, 1), clamp(dt, 0, 0.1) * 60)
@@ -84,17 +84,28 @@ const CSS = `
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(120% 90% at 8% 0%, rgba(var(--bwf-acc),.15), transparent 55%),
-    radial-gradient(90% 70% at 92% 8%, rgba(var(--bwf-acc),.10), transparent 60%),
-    linear-gradient(180deg, rgba(var(--bwf-acc),.04), transparent 70%);
+    radial-gradient(100% 70% at 20% 65%, rgba(var(--bwf-acc),.14), transparent 60%),
+    radial-gradient(80% 60% at 80% 75%, rgba(var(--bwf-acc),.10), transparent 60%),
+    linear-gradient(180deg, var(--bwf-bg) 0%, transparent 35%, rgba(var(--bwf-acc),.05) 100%);
+}
+
+.bwf-head {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 140px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--bwf-bg) 0%, rgba(var(--bwf-bg-rgb), .8) 40%, transparent 100%);
 }
 
 .bwf-bands {
   position: absolute;
   inset: 0;
   background: repeating-linear-gradient(90deg, rgba(var(--bwf-acc),.03) 0 1.6cqw, transparent 1.6cqw 4.2cqw);
-  -webkit-mask-image: linear-gradient(100deg, #000 0%, transparent 55%);
-  mask-image: linear-gradient(100deg, #000 0%, transparent 55%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 30%, transparent 100%);
   opacity: .8;
 }
 
@@ -154,7 +165,7 @@ const CSS = `
 .bwf-lw {
   display: inline-block;
   translate: 0 0;
-  transition: translate 1.25s cubic-bezier(.16,.84,.2,1) var(--bwf-d, 0ms);
+  transition: translate 0.5s cubic-bezier(.16,.84,.2,1) var(--bwf-d, 0ms);
 }
 
 .bwf[data-in='false'] .bwf-lw {
@@ -174,7 +185,7 @@ const CSS = `
     radial-gradient(circle 22cqw at var(--bwf-px) var(--bwf-py), rgba(var(--bwf-lit), calc(var(--bwf-g) * .85)), transparent 70%),
     linear-gradient(var(--bwf-ang), transparent calc(var(--bwf-b) - 9%), rgba(var(--bwf-lit),.65) calc(var(--bwf-b) - 1.5%), rgba(var(--bwf-lit),.85) var(--bwf-b), rgba(var(--bwf-lit),.25) calc(var(--bwf-b) + 3.5%), transparent calc(var(--bwf-b) + 8%)),
     linear-gradient(180deg, var(--bwf-wt) var(--bwf-top), var(--bwf-wf) var(--bwf-bot));
-  transition: transform .5s cubic-bezier(.2,.9,.25,1.2), filter .4s;
+  transition: transform .2s cubic-bezier(.2,.9,.25,1.2), filter .2s;
   transform-origin: 50% 100%;
 }
 
@@ -184,7 +195,7 @@ const CSS = `
 }
 
 .bwf-l.is-hop {
-  animation: bwf-hop .75s cubic-bezier(.2,.8,.2,1);
+  animation: bwf-hop .45s cubic-bezier(.2,.8,.2,1);
 }
 
 @keyframes bwf-hop {
@@ -358,10 +369,10 @@ export default function BeamWordmarkWrapper({
       const p = ptr.current
       const idle = drift(t)
       const target = p.inside ? beamTarget(p.u) * 0.75 + idle * 0.25 : idle
-      b = approach(b, target, 0.035, dt)
-      px = approach(px, p.x, 0.16, dt)
-      py = approach(py, p.y, 0.16, dt)
-      g = approach(g, p.inside ? 1 : 0, 0.06, dt)
+      b = approach(b, target, 0.15, dt)
+      px = approach(px, p.x, 0.45, dt)
+      py = approach(py, p.y, 0.45, dt)
+      g = approach(g, p.inside ? 1 : 0, 0.2, dt)
       set(b, px, py, g)
       raf = requestAnimationFrame(tick)
     }
@@ -425,6 +436,7 @@ export default function BeamWordmarkWrapper({
         <div className="bwf-beam" />
         <div className="bwf-glow" />
         <div className="bwf-grain" />
+        <div className="bwf-head" />
       </div>
 
       <div className="bwf-content">
@@ -440,7 +452,7 @@ export default function BeamWordmarkWrapper({
         <div className="bwf-word-box">
           <div ref={innerRef} className="bwf-word-in" aria-hidden="true">
             {letters.map((ch, i) => (
-              <span key={i} className="bwf-lw" style={{ "--bwf-d": 260 + i * 75 + "ms" } as React.CSSProperties}>
+              <span key={i} className="bwf-lw" style={{ "--bwf-d": 80 + i * 35 + "ms" } as React.CSSProperties}>
                 <span className="bwf-l" onClick={hop} onAnimationEnd={(e) => e.currentTarget.classList.remove("is-hop")}>
                   {ch === " " ? " " : ch}
                 </span>
@@ -453,3 +465,4 @@ export default function BeamWordmarkWrapper({
     </footer>
   )
 }
+
