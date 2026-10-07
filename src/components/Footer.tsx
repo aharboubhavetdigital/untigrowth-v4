@@ -70,7 +70,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenJoin }) => {
               </a>
               <button
                 onClick={onOpenJoin}
-                className="ml-1 sm:ml-2 px-5 h-9 bg-white text-[#101214] border border-white hover:bg-transparent hover:text-white/80 hover:border-white/20 text-xs font-bold rounded-full transition-colors inline-flex items-center justify-center gap-2 group cursor-pointer shrink-0"
+                className="ml-1 sm:ml-2 px-5 h-9 bg-white text-[#101214] border border-white hover:bg-[#A8E635] hover:border-[#A8E635] hover:text-[#101214] text-xs font-bold rounded-full transition-colors inline-flex items-center justify-center gap-2 group cursor-pointer shrink-0"
               >
                 <span>Découvrir Unitgrowth</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
