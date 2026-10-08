@@ -8,6 +8,7 @@ import { MissionsSection } from './components/MissionsSection';
 import { SecurityTrustSection } from './components/SecurityTrustSection';
 import { TalentPoolSection } from './components/TalentPoolSection';
 import { FaqSection } from './components/FaqSection';
+import { CtaSection } from './components/CtaSection';
 import { Footer } from './components/Footer';
 import { JoinModal } from './components/JoinModal';
 import { DiscoverModal } from './components/DiscoverModal';
@@ -152,6 +153,9 @@ export default function App() {
 
             {/* Questions fréquentes / FAQ */}
             <FaqSection />
+            
+            {/* CTA / Physics Section */}
+            <CtaSection />
           </main>
 
           {/* Footer */}
