@@ -22,9 +22,11 @@ export const UnitGrowthIcon: React.FC<{
   theme?: 'dark' | 'light' | 'auto';
   size?: number | string;
 }> = ({ className = 'h-8 w-auto', theme = 'auto' }) => {
+  const imgSrc = theme === 'light' ? '/v blanch/logo for v blanch-02.png' : '/logo unit growth v2-01.png';
+  
   return (
     <img 
-      src="/logo unit growth v2-01.png" 
+      src={imgSrc} 
       alt="UnitGrowth Icon" 
       className={`object-contain ${className}`}
     />
@@ -39,11 +41,12 @@ export const UnitGrowthLogo: React.FC<UnitGrowthLogoProps> = ({
   showText = true,
 }) => {
   const heightClass = sizeMap[size] || 'h-8';
+  const imgSrc = theme === 'light' ? '/v blanch/logo for v blanch-01.png' : '/logo unit growth v2-01.png';
 
   return (
     <div className={`inline-flex items-center ${className}`}>
       <img 
-        src="/logo unit growth v2-01.png" 
+        src={imgSrc} 
         alt="UnitGrowth Logo" 
         className={`${heightClass} w-auto object-contain`} 
       />
