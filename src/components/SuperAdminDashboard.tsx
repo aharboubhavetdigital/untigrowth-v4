@@ -48,6 +48,7 @@ import { JournauxView } from './JournauxView';
 import { GlobalSearchModal } from './GlobalSearchModal';
 import { NotificationSettingsModal } from './NotificationSettingsModal';
 import { NotificationEventsPopup } from './NotificationEventsPopup';
+import { ProfilePhotoModal } from './ProfilePhotoModal';
 
 interface SuperAdminDashboardProps {
   onLogout: () => void;
@@ -62,6 +63,8 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({
 }) => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [userAvatar, setUserAvatar] = useState('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80');
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [csvExported, setCsvExported] = useState(false);
   const [selectedCandidateIndex, setSelectedCandidateIndex] = useState(0);
   const [candidateFilter, setCandidateFilter] = useState<'all' | 'valides' | 'encours'>('all');
@@ -261,12 +264,15 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({
 
 
             {/* Profile Avatar Pill */}
-            <div className={`flex items-center gap-2 border rounded-full pl-1.5 pr-3 py-1 shadow-md ${
-              theme === 'light' ? 'bg-slate-100/80 border-slate-200' : 'bg-[#12151C] border-white/10'
-            }`}>
+            <button 
+              onClick={() => setIsProfileModalOpen(true)}
+              className={`flex items-center gap-2 border rounded-full pl-1.5 pr-3 py-1 shadow-md transition-all hover:opacity-90 ${
+                theme === 'light' ? 'bg-slate-100/80 border-slate-200' : 'bg-[#12151C] border-white/10'
+              }`}
+            >
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+                  src={userAvatar}
                   alt="Super Admin"
                   className={`w-7 h-7 rounded-full object-cover border ${theme === 'light' ? 'border-slate-300' : 'border-white'}`}
                 />
@@ -276,7 +282,7 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({
                 <div className={`text-[11px] font-extrabold leading-tight ${theme === 'light' ? 'text-slate-900' : 'text-white'}`}>Super Admin</div>
                 <div className={`text-[9px] leading-none ${theme === 'light' ? 'text-slate-500' : 'text-[#98A2B3]'}`}>Administrateur</div>
               </div>
-            </div>
+            </button>
 
             <button
               onClick={onLogout}
@@ -1495,6 +1501,16 @@ export const SuperAdminDashboard: React.FC<SuperAdminDashboardProps> = ({
         onClose={() => setIsNotifModalOpen(false)}
         initialRole="admin"
         theme={theme}
+      />
+
+      {/* Profile Photo Modal */}
+      <ProfilePhotoModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        userName="Super Admin"
+        userRole="Administrateur"
+        currentAvatar={userAvatar}
+        onSave={(newUrl) => setUserAvatar(newUrl)}
       />
     </div>
   );

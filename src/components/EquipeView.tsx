@@ -190,6 +190,7 @@ export const EquipeView: React.FC = () => {
   const [formPassword, setFormPassword] = useState('');
   const [formSelectedModules, setFormSelectedModules] = useState<string[]>([]);
   const [formIsActive, setFormIsActive] = useState(true);
+  const [formIsSuperAdmin, setFormIsSuperAdmin] = useState(false);
 
   const filterOptions = [
     { value: 'all', label: 'Tous les comptes' },
@@ -219,19 +220,20 @@ export const EquipeView: React.FC = () => {
     setFormPassword('');
     setFormSelectedModules([]);
     setFormIsActive(true);
+    setFormIsSuperAdmin(false);
     setEditingAccount(null);
     setViewMode('create');
   };
 
   // Open Edit Form
   const handleOpenEdit = (acc: InternalAccount) => {
-    if (acc.isSuperAdmin) return;
     setEditingAccount(acc);
     setFormName(acc.name);
     setFormEmail(acc.email);
     setFormPassword('');
     setFormSelectedModules(acc.modules);
     setFormIsActive(acc.isActive);
+    setFormIsSuperAdmin(acc.isSuperAdmin || false);
     setViewMode('edit');
   };
 
@@ -255,10 +257,10 @@ export const EquipeView: React.FC = () => {
       id: `acc-${Date.now()}`,
       name: formName.trim(),
       email: formEmail.trim(),
-      role: 'RESPONSABLE',
-      isSuperAdmin: false,
+      role: formIsSuperAdmin ? 'SUPER ADMINISTRATEUR' : 'RESPONSABLE',
+      isSuperAdmin: formIsSuperAdmin,
       isActive: formIsActive,
-      modules: formSelectedModules,
+      modules: formIsSuperAdmin ? ALL_MODULES.map((m) => m.title) : formSelectedModules,
     };
 
     setAccounts((prev) => [...prev, newAcc]);
@@ -281,7 +283,9 @@ export const EquipeView: React.FC = () => {
               name: formName.trim(),
               email: formEmail.trim(),
               isActive: formIsActive,
-              modules: formSelectedModules,
+              modules: formIsSuperAdmin ? ALL_MODULES.map(m => m.title) : formSelectedModules,
+              role: formIsSuperAdmin ? 'SUPER ADMINISTRATEUR' : 'RESPONSABLE',
+              isSuperAdmin: formIsSuperAdmin,
             }
           : acc
       )
@@ -310,7 +314,7 @@ export const EquipeView: React.FC = () => {
             className="px-5 py-2.5 rounded-full bg-[#A8E635] hover:bg-[#b8f042] active:bg-[#97cf2e] text-[#090B0E] text-xs font-black transition-all shadow-lg shadow-[#A8E635]/20 cursor-pointer active:scale-95 flex items-center justify-center gap-2 shrink-0"
           >
             <UserPlus className="w-4 h-4 text-[#090B0E]" />
-            <span>Nouveau responsable</span>
+            <span>Nouveau compte</span>
           </button>
         )}
       </div>
@@ -412,31 +416,44 @@ export const EquipeView: React.FC = () => {
                 </div>
 
                 {/* Right Action Button */}
-                {!account.isSuperAdmin && (
-                  <div className="shrink-0 pt-2 md:pt-0">
-                    <button
-                      type="button"
-                      onClick={() => handleOpenEdit(account)}
-                      className="w-full md:w-auto px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 active:bg-white/20 active:scale-95 border border-white/10 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm"
-                    >
-                      <span>Modifier les accès</span>
-                    </button>
-                  </div>
-                )}
+                <div className="shrink-0 pt-2 md:pt-0">
+                  <button
+                    type="button"
+                    onClick={() => handleOpenEdit(account)}
+                    className="w-full md:w-auto px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 active:bg-white/20 active:scale-95 border border-white/10 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm"
+                  >
+                    <span>Modifier</span>
+                  </button>
+                </div>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* ================= VIEW MODE 2: CRÉER UN RESPONSABLE ================= */}
+      {/* ================= VIEW MODE 2: CRÉER UN COMPTE ================= */}
       {viewMode === 'create' && (
         <div className="bg-[#12151C] p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl space-y-6">
           <h3 className="text-base font-black text-white tracking-tight">
-            Créer un responsable
+            Créer un compte
           </h3>
 
           <div className="space-y-4">
+            {/* Input: Role (Super Admin or not) */}
+            <div className="pb-2 border-b border-white/10">
+              <label className="inline-flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formIsSuperAdmin}
+                  onChange={(e) => {
+                    setFormIsSuperAdmin(e.target.checked);
+                    if (e.target.checked) setFormSelectedModules(ALL_MODULES.map(m => m.title));
+                  }}
+                  className="rounded border-white/20 text-[#A8E635] focus:ring-0 cursor-pointer accent-[#A8E635]"
+                />
+                <span className="text-xs font-bold text-white">Créer en tant que Super Administrateur (Accès total)</span>
+              </label>
+            </div>
             {/* Inputs: Nom & Email */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -481,49 +498,51 @@ export const EquipeView: React.FC = () => {
             </div>
 
             {/* Modules accordés Section */}
-            <div className="pt-2 space-y-3">
-              <div>
-                <h4 className="text-xs font-black text-white uppercase tracking-wider">
-                  Modules accordés
-                </h4>
-                <p className="text-[11px] text-[#98A2B3] mt-0.5">
-                  Chaque case correspond à une action / un écran de la plateforme.
-                </p>
-              </div>
+            {!formIsSuperAdmin && (
+              <div className="pt-2 space-y-3">
+                <div>
+                  <h4 className="text-xs font-black text-white uppercase tracking-wider">
+                    Modules accordés
+                  </h4>
+                  <p className="text-[11px] text-[#98A2B3] mt-0.5">
+                    Chaque case correspond à une action / un écran de la plateforme.
+                  </p>
+                </div>
 
-              {/* Modules Grid Checkboxes */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {ALL_MODULES.map((mod) => {
-                  const isChecked = formSelectedModules.includes(mod.title);
-                  return (
-                    <div
-                      key={mod.id}
-                      onClick={() => handleToggleModule(mod.title)}
-                      className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 ${
-                        isChecked
-                          ? 'bg-[#A8E635]/10 border-[#A8E635]/50 shadow-sm'
-                          : 'bg-[#090B0E] border-white/10 hover:border-white/20'
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => {}} // handled by parent onClick
-                        className="mt-0.5 rounded border-white/20 text-[#A8E635] focus:ring-0 cursor-pointer accent-[#A8E635]"
-                      />
-                      <div className="space-y-0.5">
-                        <h5 className="text-xs font-bold text-white">
-                          {mod.title}
-                        </h5>
-                        <p className="text-[11px] text-[#98A2B3] leading-snug">
-                          {mod.description}
-                        </p>
+                {/* Modules Grid Checkboxes */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {ALL_MODULES.map((mod) => {
+                    const isChecked = formSelectedModules.includes(mod.title);
+                    return (
+                      <div
+                        key={mod.id}
+                        onClick={() => handleToggleModule(mod.title)}
+                        className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 ${
+                          isChecked
+                            ? 'bg-[#A8E635]/10 border-[#A8E635]/50 shadow-sm'
+                            : 'bg-[#090B0E] border-white/10 hover:border-white/20'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => {}} // handled by parent onClick
+                          className="mt-0.5 rounded border-white/20 text-[#A8E635] focus:ring-0 cursor-pointer accent-[#A8E635]"
+                        />
+                        <div className="space-y-0.5">
+                          <h5 className="text-xs font-bold text-white">
+                            {mod.title}
+                          </h5>
+                          <p className="text-[11px] text-[#98A2B3] leading-snug">
+                            {mod.description}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Bottom Action Buttons */}
@@ -554,6 +573,21 @@ export const EquipeView: React.FC = () => {
           </h3>
 
           <div className="space-y-4">
+            {/* Input: Role (Super Admin or not) */}
+            <div className="pb-2 border-b border-white/10">
+              <label className="inline-flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formIsSuperAdmin}
+                  onChange={(e) => {
+                    setFormIsSuperAdmin(e.target.checked);
+                    if (e.target.checked) setFormSelectedModules(ALL_MODULES.map(m => m.title));
+                  }}
+                  className="rounded border-white/20 text-[#A8E635] focus:ring-0 cursor-pointer accent-[#A8E635]"
+                />
+                <span className="text-xs font-bold text-white">Changer en Super Administrateur (Accès total)</span>
+              </label>
+            </div>
             {/* Inputs: Nom & Email */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -596,11 +630,12 @@ export const EquipeView: React.FC = () => {
             </div>
 
             {/* Modules accordés Section */}
-            <div className="pt-2 space-y-3">
-              <div>
-                <h4 className="text-xs font-black text-white uppercase tracking-wider">
-                  Modules accordés
-                </h4>
+            {!formIsSuperAdmin && (
+              <div className="pt-2 space-y-3">
+                <div>
+                  <h4 className="text-xs font-black text-white uppercase tracking-wider">
+                    Modules accordés
+                  </h4>
                 <p className="text-[11px] text-[#98A2B3] mt-0.5">
                   Chaque case correspond à une action / un écran de la plateforme.
                 </p>
@@ -639,6 +674,7 @@ export const EquipeView: React.FC = () => {
                 })}
               </div>
             </div>
+            )}
 
             {/* Active Account Checkbox */}
             <div className="pt-2">

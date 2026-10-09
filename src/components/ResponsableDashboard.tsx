@@ -27,6 +27,7 @@ import { UnitGrowthLogo } from './UnitGrowthLogo';
 import { GlobalSearchModal } from './GlobalSearchModal';
 import { NotificationSettingsModal } from './NotificationSettingsModal';
 import { NotificationEventsPopup } from './NotificationEventsPopup';
+import { ProfilePhotoModal } from './ProfilePhotoModal';
 
 interface ResponsableDashboardProps {
   onLogout: () => void;
@@ -44,6 +45,8 @@ export const ResponsableDashboard: React.FC<ResponsableDashboardProps> = ({
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotifModalOpen, setIsNotifModalOpen] = useState(false);
   const [isNotifPopupOpen, setIsNotifPopupOpen] = useState(false);
+  const [userAvatar, setUserAvatar] = useState('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80');
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   // Exact 8 sidebar pages given in the screenshot
   const sidebarNavItems = [
@@ -143,12 +146,15 @@ export const ResponsableDashboard: React.FC<ResponsableDashboardProps> = ({
             </div>
 
             {/* Profile Avatar Pill */}
-            <div className={`flex items-center gap-2 border rounded-full pl-1.5 pr-3 py-1 shadow-sm ${
-              theme === 'light' ? 'bg-slate-100/80 border-slate-200' : 'bg-[#12151C] border-white/10'
-            }`}>
+            <button 
+              onClick={() => setIsProfileModalOpen(true)}
+              className={`flex items-center gap-2 border rounded-full pl-1.5 pr-3 py-1 shadow-sm transition-all hover:opacity-90 ${
+                theme === 'light' ? 'bg-slate-100/80 border-slate-200' : 'bg-[#12151C] border-white/10'
+              }`}
+            >
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+                  src={userAvatar}
                   alt="Responsable"
                   className="w-7 h-7 rounded-full object-cover border border-[#84cc16]"
                 />
@@ -158,7 +164,7 @@ export const ResponsableDashboard: React.FC<ResponsableDashboardProps> = ({
                 <div className={`text-[11px] font-extrabold leading-tight ${theme === 'light' ? 'text-slate-900' : 'text-white'}`}>Yassine E.</div>
                 <div className={`text-[9px] font-semibold leading-none ${theme === 'light' ? 'text-emerald-700' : 'text-[#A8E635]'}`}>Responsable Vivier</div>
               </div>
-            </div>
+            </button>
 
             <button
               onClick={onLogout}
@@ -270,6 +276,15 @@ export const ResponsableDashboard: React.FC<ResponsableDashboardProps> = ({
         onClose={() => setIsNotifModalOpen(false)}
         initialRole="manager"
         theme={theme}
+      />
+      {/* Profile Photo Modal */}
+      <ProfilePhotoModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        userName="Yassine E."
+        userRole="Responsable Vivier"
+        currentAvatar={userAvatar}
+        onSave={(newUrl) => setUserAvatar(newUrl)}
       />
     </div>
   );

@@ -50,6 +50,7 @@ import { UnitGrowthLogo, UnitGrowthIcon } from './UnitGrowthLogo';
 import { GlobalSearchModal } from './GlobalSearchModal';
 import { NotificationSettingsModal } from './NotificationSettingsModal';
 import { NotificationEventsPopup } from './NotificationEventsPopup';
+import { ProfilePhotoModal } from './ProfilePhotoModal';
 
 interface FreelanceDashboardProps {
   onLogout: () => void;
@@ -64,6 +65,8 @@ export const FreelanceDashboard: React.FC<FreelanceDashboardProps> = ({
 }) => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [userAvatar, setUserAvatar] = useState('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80');
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotifModalOpen, setIsNotifModalOpen] = useState(false);
   const [isNotifPopupOpen, setIsNotifPopupOpen] = useState(false);
@@ -266,12 +269,15 @@ export const FreelanceDashboard: React.FC<FreelanceDashboardProps> = ({
             </div>
 
             {/* Profile Avatar Pill */}
-            <div className={`flex items-center gap-2 border rounded-full pl-1.5 pr-3 py-1 shadow-sm ${
-              isLight ? 'bg-slate-100/80 border-slate-200' : 'bg-[#12151C] border-white/10 shadow-md'
-            }`}>
+            <button 
+              onClick={() => setIsProfileModalOpen(true)}
+              className={`flex items-center gap-2 border rounded-full pl-1.5 pr-3 py-1 shadow-sm transition-all hover:opacity-90 ${
+                isLight ? 'bg-slate-100/80 border-slate-200' : 'bg-[#12151C] border-white/10 shadow-md'
+              }`}
+            >
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+                  src={userAvatar}
                   alt="Yassine El Amrani"
                   className={`w-7 h-7 rounded-full object-cover border ${isLight ? 'border-slate-300' : 'border-white/20'}`}
                 />
@@ -281,7 +287,7 @@ export const FreelanceDashboard: React.FC<FreelanceDashboardProps> = ({
                 <div className={`text-xs font-bold leading-none ${isLight ? 'text-slate-900' : 'text-white'}`}>Yassine El Amrani</div>
                 <div className={`text-[10px] leading-none mt-0.5 ${isLight ? 'text-slate-500' : 'text-[#98A2B3]'}`}>Freelance</div>
               </div>
-            </div>
+            </button>
 
             {/* Logout */}
             <button
@@ -925,6 +931,16 @@ export const FreelanceDashboard: React.FC<FreelanceDashboardProps> = ({
         onClose={() => setIsNotifModalOpen(false)}
         initialRole="freelance"
         theme={theme}
+      />
+
+      {/* Profile Photo Modal */}
+      <ProfilePhotoModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        userName="Yassine El Amrani"
+        userRole="Freelance"
+        currentAvatar={userAvatar}
+        onSave={(newUrl) => setUserAvatar(newUrl)}
       />
     </div>
   );
